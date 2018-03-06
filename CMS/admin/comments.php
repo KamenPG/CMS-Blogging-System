@@ -42,16 +42,13 @@
            include "includes/edit_post.php";
            break;
 
-           default: 'view_all_posts';
+           default:
 
-             include "includes/view_all_posts.php";
+             include "includes/view_all_comments.php";
              break;
 
 
         }
-
-
-
 
          ?>
 

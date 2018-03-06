@@ -62,7 +62,7 @@ if (empty($post_image)) {
 
             $update_post = mysqli_query($connection, $query);
 
-confirmQuery($update_post);
+            confirmQuery($update_post);
 
 }
  ?>
