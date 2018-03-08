@@ -22,19 +22,6 @@
                 </div>
                 <!-- /.row -->
 
-                <?php
-
-                $query = "SELECT * FROM posts WHERE post_status = 'draft'";
-                $select_draft_posts = mysqli_query($connection, $query);
-                $count_draft_posts = mysqli_num_rows($select_draft_posts);
-
-                $query = "SELECT * FROM posts WHERE post_status = 'published'";
-                $select_published_posts = mysqli_query($connection, $query);
-                $count_published_posts = mysqli_num_rows($select_published_posts);
-
-
-                 ?>
-
 
          <!-- /.row -->
 
@@ -85,14 +72,6 @@
                $select_all_comments = mysqli_query($connection, $query);
                $count_comments = mysqli_num_rows($select_all_comments);
 
-               $query = "SELECT * FROM comments WHERE content_status = 'unapproved'";
-               $select_unapproved_comments = mysqli_query($connection, $query);
-               $count_unapproved_comments = mysqli_num_rows($select_unapproved_comments);
-
-               $query = "SELECT * FROM comments WHERE content_status = 'approved'";
-               $select_approved_comments = mysqli_query($connection, $query);
-               $count_approved_comments = mysqli_num_rows($select_approved_comments);
-
                 ?>
 
               <div class='huge'><?php echo $count_comments ?></div>
@@ -123,16 +102,6 @@
                $query = "SELECT * FROM users";
                $select_all_users = mysqli_query($connection, $query);
                $count_users = mysqli_num_rows($select_all_users);
-
-               $query = "SELECT * FROM users WHERE user_role = 'admin'";
-               $select_admin_users = mysqli_query($connection, $query);
-               $count_admin_users = mysqli_num_rows($select_admin_users);
-
-               $query = "SELECT * FROM users WHERE user_role = 'subscriber'";
-               $select_sub_users = mysqli_query($connection, $query);
-               $count_sub_users = mysqli_num_rows($select_sub_users);
-
-
 
                 ?>
 
@@ -186,7 +155,32 @@
 
          <div class="row">
 
-           <div id="columnchart_material" style="width: 'auto'; height: 500px;"></div>
+           <div id="columnchart_material" style="width: 'auto'; height: 500px;">
+
+             <?php
+
+             $query = "SELECT * FROM posts WHERE post_status = 'draft'";
+             $select_draft_posts = mysqli_query($connection, $query);
+             $count_draft_posts = mysqli_num_rows($select_draft_posts);
+
+             $query = "SELECT * FROM comments WHERE content_status = 'unapproved'";
+             $select_unapproved_comments = mysqli_query($connection, $query);
+             $count_unapproved_comments = mysqli_num_rows($select_unapproved_comments);
+
+             $query = "SELECT * FROM users WHERE user_role = 'admin'";
+             $select_admin_users = mysqli_query($connection, $query);
+             $count_admin_users = mysqli_num_rows($select_admin_users);
+
+             $query = "SELECT * FROM users WHERE user_role = 'subscriber'";
+             $select_sub_users = mysqli_query($connection, $query);
+             $count_sub_users = mysqli_num_rows($select_sub_users);
+
+
+              ?>
+
+
+
+           </div>
 
            <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
@@ -194,21 +188,17 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Data', 'Count'],
+          ['Date', 'Count'],
 
           <?php
 
-          $elements_text = ['Draft Posts', 'Posts',
-            'Pending Comments', 'Comments',
-            'Admins', 'Subscribers', 'Users', 'Categories'];
+          $elements_text = ['Draft Posts', 'Posts', 'Pending Comments', 'Comments', 'Admins', 'Subsribers', 'Users', 'Categories'];
 
-          $elements_count = [$count_draft_posts, $count_posts,
-          $count_unapproved_comments, $count_comments,
-          $count_admin_users, $count_sub_users, $count_users, $count_categories];
+          $elements_count = [$count_draft_posts, $count_posts, $count_unapproved_comments, $count_comments, $count_admin_users, $count_sub_users, $count_users, $count_categories];
 
           for ($i=0; $i < 8 ; $i++) {
 
-            echo "['{$elements_text[$i]}'" . "," . "'{$elements_count[$i]}'],";
+            echo "['{$elements_text[$i]}'" . "," . "{$elements_count[$i]}],";
 
           }
 
