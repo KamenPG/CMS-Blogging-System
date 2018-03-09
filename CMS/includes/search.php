@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
         } // closing else of if ($count == 0) {
     } // closing else of if(!$tags)
 } else {
-    $query = "SELECT * FROM posts WHERE post_status = 'published'";
+    $query = "SELECT * FROM posts WHERE post_status = 'published' ORDER BY post_id DESC";
     $select_all_posts_query = mysqli_query($connection, $query);
 
     while ($row = mysqli_fetch_assoc($select_all_posts_query)) {

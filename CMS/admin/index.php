@@ -163,6 +163,10 @@
              $select_draft_posts = mysqli_query($connection, $query);
              $count_draft_posts = mysqli_num_rows($select_draft_posts);
 
+             $query = "SELECT * FROM posts WHERE post_status = 'published'";
+             $select_published_posts = mysqli_query($connection, $query);
+             $count_publshed_posts = mysqli_num_rows($select_published_posts);
+
              $query = "SELECT * FROM comments WHERE content_status = 'unapproved'";
              $select_unapproved_comments = mysqli_query($connection, $query);
              $count_unapproved_comments = mysqli_num_rows($select_unapproved_comments);
@@ -192,11 +196,11 @@
 
           <?php
 
-          $elements_text = ['Draft Posts', 'Posts', 'Pending Comments', 'Comments', 'Admins', 'Subsribers', 'Users', 'Categories'];
+          $elements_text = ['Active Posts', 'Draft Posts', 'Posts', 'Pending Comments', 'Comments', 'Admins', 'Subsribers', 'Users', 'Categories'];
 
-          $elements_count = [$count_draft_posts, $count_posts, $count_unapproved_comments, $count_comments, $count_admin_users, $count_sub_users, $count_users, $count_categories];
+          $elements_count = [$count_publshed_posts, $count_draft_posts, $count_posts, $count_unapproved_comments, $count_comments, $count_admin_users, $count_sub_users, $count_users, $count_categories];
 
-          for ($i=0; $i < 8 ; $i++) {
+          for ($i=0; $i < 9 ; $i++) {
 
             echo "['{$elements_text[$i]}'" . "," . "{$elements_count[$i]}],";
 

@@ -25,6 +25,9 @@ if (isset($_POST['create_user'])) {
 
   confirmQuery($create_user_query);
 
+
+  echo "<div class=bg-success><h3>User Created: " . " " . "<a href='users.php'>View Users</a></h3></div>";
+
 }
 
 

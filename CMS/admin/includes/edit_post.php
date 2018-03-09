@@ -64,6 +64,9 @@ if (empty($post_image)) {
 
             confirmQuery($update_post);
 
+            echo "<div class='alert alert-success'><p><strong>Post Updated</strong>: <a href='../post.php?p_id={$the_post_id}'>View Post</a> or
+            <a href='posts.php'>Edit More Posts</a></p></div>";
+
 }
  ?>
 
@@ -102,9 +105,24 @@ if (empty($post_image)) {
   </div>
 
   <div class="form-group">
-    <label for="post_status">Post Status</label>
-    <input value="<?php echo $post_status?>" type="text" class="form-control" name="post_status">
-  </div>
+  <select class="" name="post_status">
+    <option value='<?php echo $post_status?>'><?php echo $post_status; ?></option>
+    <?php
+
+    if ($post_status == 'published') {
+      echo "<option value='draft'>Draft</option>";
+    }
+
+    else {
+      echo "<option value='published'>Publish</option>";
+    }
+
+    scr
+
+     ?>
+
+  </select>
+</div>
 
   <div class="form-group">
     <img width="300" src="../images/<?php echo $post_image ?>" alt="">
@@ -118,7 +136,8 @@ if (empty($post_image)) {
 
   <div class="form-group">
     <label for="post_content">Post Content</label>
-    <textarea  class="form-control" name="post_content" id="" rows="10" cols="30"><?php echo $post_content?></textarea>
+    <textarea  class="form-control" name="post_content" id="body" rows="10" cols="30"><?php echo $post_content?></textarea>
+    <?php include './scripts.js'?>
   </div>
 
   <div class="form-group">

@@ -89,6 +89,8 @@
             $query = "DELETE FROM users WHERE user_id = {$user_id}";
             $delete_user_query = mysqli_query($connection, $query);
             header("Location: users.php");
+
+
         }
 
  ?>

@@ -82,7 +82,8 @@ if (isset($_POST['create_post'])) {
 
   <div class="form-group">
     <label for="post_content">Post Content</label>
-    <textarea class="form-control" name="post_content" id="" rows="10" cols="30"></textarea>
+    <textarea class="form-control" name="post_content" id="body" rows="10" cols="50"></textarea>
+    <?php include './scripts.js' ?>
   </div>
 
   <div class="form-group">
