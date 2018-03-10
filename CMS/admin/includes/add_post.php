@@ -23,7 +23,13 @@ if (isset($_POST['create_post'])) {
 
         $create_post_query = mysqli_query($connection, $query);
 
-  confirmQuery($create_post_query);
+        confirmQuery($create_post_query);
+
+        $the_post_id = mysqli_insert_id($connection);
+
+
+        echo "<div class='alert alert-success'><p><strong>Post Created</strong>: <a href='../post.php?p_id={$the_post_id}'>View Post</a></p></div>";
+
 
 }
 

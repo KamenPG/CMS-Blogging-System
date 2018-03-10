@@ -166,10 +166,12 @@ if (isset($_POST['submit'])) {
 
       if (isset($_POST['create_comment'])) {
 
-          $the_post_id = $_GET['p_id'];
-          $comment_author = $_POST['comment_author'];
-          $comment_email = $_POST['comment_email'];
-          $comment_content = $_POST['comment_content'];
+        $the_post_id = $_GET['p_id'];
+        $comment_author = $_POST['comment_author'];
+        $comment_email = $_POST['comment_email'];
+        $comment_content = $_POST['comment_content'];
+
+        if (!empty($comment_author) && !empty($comment_content) && !empty($comment_email)) {
 
           $query2 = "INSERT INTO comments
           (comment_post_id, comment_author, comment_email, comment_content, content_status, comment_date) VALUES
@@ -181,8 +183,12 @@ if (isset($_POST['submit'])) {
 
           $update_comments_count = mysqli_query($connection, $query);
 
+        }
 
+        else {
 
+          echo "<script>alert('Fields cannot be empty')</script>";
+        }
       }
 
 
