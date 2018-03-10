@@ -193,6 +193,10 @@ ul.alert-dropdown {
     color: #d9534f;
 }
 
+#bulkOptionsContainer {
+  right: 15px;
+}
+
 .panel-red a:hover {
     color: #b52b27;
 }
