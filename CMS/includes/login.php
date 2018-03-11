@@ -30,6 +30,8 @@ if (isset($_POST['login'])) {
 
   }
 
+  $password = crypt ($password, $db_user_password);
+
   if ($db_username === $username && $db_user_password === $password && $db_user_role === 'Admin') {
 
     $_SESSION['username'] = $db_username;
