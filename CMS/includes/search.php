@@ -19,17 +19,11 @@ if (isset($_POST['submit'])) {
                 $post_author  = $row['post_author'];
                 $post_image   = $row['post_image']; ?>
 
-<h1 class="page-header">
-      Page Heading
-      <small>Secondary Text</small>
-</h1>
-
 <!-- First Blog Post -->
 <h2>
       <a href="#"><?php echo $post_title ?></a>
 </h2>
 <p class="lead">
-    by <a href="index.php"><?php echo $post_author ?></a>
 </p>
 <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date ?></p>
 <hr>
@@ -57,21 +51,15 @@ if (isset($_POST['submit'])) {
         $post_content = substr($row['post_content'], 0, 300);
         $post_status = $row['post_status'];
 
-        if ($post_status == 'published') { ?>
-
-
-
-            <h1 class="page-header">
-                Page Heading
-                <small>Secondary Text</small>
-            </h1>
+        if ($post_status == 'published') {
+            ?>
 
             <!-- First Blog Post -->
             <h2>
                   <a href="post.php?p_id=<?php echo $post_id ?>"><?php echo $post_title ?></a>
             </h2>
             <p class="lead">
-                by <a href="index.php"><?php echo $post_author ?></a>
+                by <a href="author_posts.php?author=<?php echo $post_author ?>&p_id=<?php echo $post_id ?>"><?php echo $post_author ?></a>
             </p>
             <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date ?></p>
             <hr>
@@ -83,14 +71,10 @@ if (isset($_POST['submit'])) {
             <hr>
 
           <?php
-        }
-
-        else {
-
-          echo "<h1 class=text-center>NO POSTS AVAILABLE SORRY";
-
-        ?>
+        } else {
+            echo "<h1 class=text-center>NO POSTS AVAILABLE SORRY"; ?>
 
 <?php
-}}
+        }
+    }
 } ?>

@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
     <a href="#"><?php echo $post_title ?></a>
 </h2>
 <p class="lead">
-    by <a href="author_posts.php?author=<?php echo $post_author ?>&p_id=<?php echo $post_id ?>"><?php echo $post_author ?></a>
+    by <a href="index.php"><?php echo $post_author ?></a>
 </p>
 <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date ?></p>
 <hr>
@@ -58,9 +58,10 @@ if (isset($_POST['submit'])) {
 } else {
     if (isset($_GET['p_id'])) {
         $the_post_id = $_GET['p_id'];
+        $the_post_author = $_GET['author'];
     }
 
-    $query1 = "SELECT * FROM posts WHERE post_id = $the_post_id";
+    $query1 = "SELECT * FROM posts WHERE post_author = '{$the_post_author}'";
     $select_all_posts_query = mysqli_query($connection, $query1);
 
     while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
