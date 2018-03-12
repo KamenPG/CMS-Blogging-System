@@ -19,11 +19,6 @@ if (isset($_POST['submit'])) {
                 $post_author  = $row['post_author'];
                 $post_image   = $row['post_image']; ?>
 
-<h1 class="page-header">
-Page Heading
-<small>Secondary Text</small>
-</h1>
-
 <!-- First Blog Post -->
 <h2>
 <a href="#"><?php echo $post_title ?></a>
@@ -59,10 +54,6 @@ by <a href="index.php"><?php echo $post_author ?></a>
         $post_date = $row['post_date'];
         $post_image = $row['post_image'];
         $post_content = substr($row['post_content'], 0, 300); ?>
-  <h1 class="page-header">
-      Page Heading
-      <small>Secondary Text</small>
-  </h1>
 
   <!-- First Blog Post -->
   <h2>
