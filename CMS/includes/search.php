@@ -39,7 +39,25 @@ if (isset($_POST['submit'])) {
         } // closing else of if ($count == 0) {
     } // closing else of if(!$tags)
 } else {
-    $query = "SELECT * FROM posts WHERE post_status = 'published' ORDER BY post_id DESC";
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+    } else {
+        $page = "";
+    }
+
+    if ($page == "" || $page == 1) {
+        $page_1 = 0;
+    } else {
+        $page_1 = ($page * 3) - 3;
+    }
+
+    $post_query_count = "SELECT * FROM posts";
+    $find_count = mysqli_query($connection, $post_query_count);
+    $count = mysqli_num_rows($find_count);
+
+    $count = ceil($count / 3);
+
+    $query = "SELECT * FROM posts  WHERE post_status = 'published' ORDER BY post_id DESC LIMIT $page_1, 3";
     $select_all_posts_query = mysqli_query($connection, $query);
 
     while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
