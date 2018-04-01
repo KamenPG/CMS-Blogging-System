@@ -36,13 +36,15 @@ if (isset($_SESSION['username'])) {
    $user_email = $_POST['user_email'];
    $user_password = $_POST['user_password'];
 
+   $password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
+
    $query = "UPDATE users SET ";
    $query .="user_firstname = '{$user_firstname}', ";
    $query .="user_lastname = '{$user_lastname}', ";
    $query .="user_role = '{$user_role}', ";
    $query .="username = '{$username}', ";
    $query .="user_email = '{$user_email}', ";
-   $query .="user_password = '{$user_password}' ";
+   $query .="user_password = '{$password}' ";
    $query .="WHERE user_id = {$user_id} ";
 
    $update_user = mysqli_query($connection, $query);
@@ -85,19 +87,19 @@ if (isset($_SESSION['username'])) {
 
         <div class="form-group">
           <select name="user_role" id="">
-            <option value="subscriber"><?php echo "$user_role"; ?></option>
+            <option value="Subscriber"><?php echo "$user_role"; ?></option>
 
             <?php
 
             if ($user_role == 'Admin') {
 
-              echo "<option value='subscriber'>Subscriber</option>";
+              echo "<option value='Subscriber'>Subscriber</option>";
 
             }
 
             else  {
 
-              echo "<option value='admin'>Admin</option>";
+              echo "<option value='Admin'>Admin</option>";
 
             }
              ?>

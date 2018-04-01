@@ -10,6 +10,9 @@ if (isset($_POST['create_user'])) {
   $username = $_POST['username'];
   $user_email = $_POST['user_email'];
   $user_password = $_POST['user_password'];
+
+  $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
+
   // $post_date = date('d-m-y');
   // $post_comment_count = 4;
 
@@ -49,8 +52,8 @@ if (isset($_POST['create_user'])) {
     <select name="user_role" id="">
 
       <option value="subscriber">Select Option</option>
-      <option value="admin">Admin</option>
-      <option value="subscriber">Subscriber</option>
+      <option value="Admin">Admin</option>
+      <option value="Subscriber">Subscriber</option>
 
     </select>
   </div>

@@ -30,9 +30,9 @@ if (isset($_POST['login'])) {
 
   }
 
-  $password = crypt ($password, $db_user_password);
+  // $password = crypt ($password, $db_user_password);
 
-  if ($db_username === $username && $db_user_password === $password && $db_user_role === 'Admin') {
+  if (password_verify($password, $db_user_password) && $db_user_role == 'Admin') {
 
     $_SESSION['username'] = $db_username;
     $_SESSION['firstname'] = $db_user_firstname;
@@ -42,12 +42,15 @@ if (isset($_POST['login'])) {
     header("Location: ../admin");
   }
 
+  else if (password_verify($password, $db_user_password) && $db_user_role == 'Subscriber') {
+
+      header("Location: ../index.php");
+  }
+
   else {
 
     header("Location: ../index.php");
 
   }
-
 }
-
  ?>

@@ -14,7 +14,7 @@ while ($row = mysqli_fetch_assoc($select_users_by_id)) {
     $user_role = $row['user_role'];
     $username = $row['username'];
     $user_email = $row['user_email'];
-    $user_password = $row['user_password'];
+    $db_user_password = $row['user_password'];
 }
 
 ?>
@@ -29,16 +29,8 @@ if (isset($_POST['edit_user'])) {
     $user_email = $_POST['user_email'];
     $user_password = $_POST['user_password'];
 
-    $query = "SELECT randSalt FROM users";
-    $select_randsalt_query = mysqli_query($connection, $query);
 
-    if (!$select_randsalt_query) {
-        die("Query Failed ! . mysqli_error($connection)");
-    }
-
-    $row = mysqli_fetch_array($select_randsalt_query);
-    $salt = $row['randSalt'];
-    $hashed_password = crypt($user_password, $salt);
+    $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
 
     $query = "UPDATE users SET ";
     $query .="user_firstname = '{$user_firstname}', ";
@@ -104,7 +96,7 @@ if (isset($_POST['edit_user'])) {
 
 <div class="form-group">
   <label for="post_content">Password</label>
-  <input type="password" class="form-control" name="user_password" value="<?php echo "$user_password"?>">
+  <input type="password" class="form-control" name="user_password" value="<?php echo "$db_user_password"?>">
 </div>
 
 <div class="form-group">
