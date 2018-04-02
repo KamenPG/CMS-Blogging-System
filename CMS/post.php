@@ -176,7 +176,7 @@ if (isset($_POST['submit'])) {
 
               $create_comment_query = mysqli_query($connection, $query2);
 
-              $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 WHERE post_id = $the_post_id ";
+              // $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 WHERE post_id = $the_post_id ";
 
               $update_comments_count = mysqli_query($connection, $query);
           } else {
