@@ -4,7 +4,7 @@
   <img src ="/CMS/screenshots/index2.png" />
   <img src ="/CMS/screenshots/registerform.png"/>
   <img src ="/CMS/screenshots/dashboard.png" />
-  <img src ="/CMS/screenshots/all_posts.png" />
+  <img src ="/CMS/screenshots/allPostsUpdated.png" />
   <img src ="/CMS/screenshots/createPost.png" />
   <img src ="/CMS/screenshots/categories.png" />
   <img src ="/CMS/screenshots/comments.png" />
