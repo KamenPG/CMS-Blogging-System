@@ -1,5 +1,8 @@
 <?php
 
+$message = "";
+$result = "";
+
 if (isset($_GET['edit_user'])) {
     $the_user_id = $_GET['edit_user'];
 }
@@ -29,28 +32,41 @@ if (isset($_POST['edit_user'])) {
     $user_email = $_POST['user_email'];
     $user_password = $_POST['user_password'];
 
+if (!empty($user_password) && !empty($username) && !empty($user_email)) {
 
-    $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
+  $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
 
-    $query = "UPDATE users SET ";
-    $query .="user_firstname = '{$user_firstname}', ";
-    $query .="user_lastname = '{$user_lastname}', ";
-    $query .="user_role = '{$user_role}', ";
-    $query .="username = '{$username}', ";
-    $query .="user_email = '{$user_email}', ";
-    $query .="user_password = '{$hashed_password}' ";
-    $query .="WHERE user_id = {$the_user_id} ";
+  $query = "UPDATE users SET ";
+  $query .="user_firstname = '{$user_firstname}', ";
+  $query .="user_lastname = '{$user_lastname}', ";
+  $query .="user_role = '{$user_role}', ";
+  $query .="username = '{$username}', ";
+  $query .="user_email = '{$user_email}', ";
+  $query .="user_password = '{$hashed_password}' ";
+  $query .="WHERE user_id = {$the_user_id} ";
 
-    $update_post = mysqli_query($connection, $query);
+  $update_post = mysqli_query($connection, $query);
 
-    confirmQuery($update_post);
+  confirmQuery($update_post);
 
-    echo "<div class=bg-success>User Updated: " . " " . "<a href='users.php'>View Users</a></div>";
+  $message = "User Updated: " . " " . "<a href='users.php'>View Users</a>";
+  $result = "success";
+
+}
+
+else {
+
+  $message = "Fields cannot be empty!";
+  $result = "danger";
+
+}
 }
 
  ?>
 
 <form action="" method="post" enctype="multipart/form-data">
+
+  <h4><div class=bg-<?php echo $result ?>><strong><?php echo $message?></strong></div></h4>
 
 <div class="form-group">
   <label for="title">First Name</label>

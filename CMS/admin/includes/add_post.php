@@ -1,4 +1,8 @@
 <?php
+
+$message = "";
+$result = "";
+  
 if (isset($_POST['create_post'])) {
 
   $post_title = $_POST['title'];
@@ -13,30 +17,40 @@ if (isset($_POST['create_post'])) {
   $post_content = $_POST['post_content'];
   $post_date = date('d-m-y');
 
-        move_uploaded_file($post_image_temp,"../images/$post_image");
-
-        $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date,
-        post_image, post_content, post_tags, post_status)";
-
-        $query .="VALUES({$post_category_id},'{$post_title}','{$post_author}',now(),
-        '{$post_image}','{$post_content}','{$post_tags}','{$post_status}')";
-
-        $create_post_query = mysqli_query($connection, $query);
-
-        confirmQuery($create_post_query);
-
-        $the_post_id = mysqli_insert_id($connection);
 
 
-        echo "<div class='alert alert-success'><p><strong>Post Created</strong>: <a href='../post.php?p_id={$the_post_id}'>View Post</a></p></div>";
+  if (!empty($post_title) && !empty($post_author) && !empty($post_category_id) && !empty($post_status) && !empty($post_image) && !empty($post_image_temp) && !empty($post_tags) && !empty($post_content)) {
 
 
+            move_uploaded_file($post_image_temp,"../images/$post_image");
+
+            $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date,
+            post_image, post_content, post_tags, post_status, post_view_count)";
+
+            $query .="VALUES({$post_category_id},'{$post_title}','{$post_author}',now(),
+            '{$post_image}','{$post_content}','{$post_tags}','{$post_status}', 0)";
+
+            $create_post_query = mysqli_query($connection, $query);
+
+            confirmQuery($create_post_query);
+
+            $the_post_id = mysqli_insert_id($connection);
+
+            $message = "Post Created</strong>: <a href='../post.php?p_id={$the_post_id}'>View Post</a>";
+            $result = "success";
+  }
+
+  else {
+    $message = "Fields cannot be empty!";
+    $result = "danger";
+  }
 }
-
-
  ?>
 
 <form action="" method="post" enctype="multipart/form-data">
+
+  <h4><div class=bg-<?php echo $result ?>><strong><?php echo $message?></strong></div></h4>
+
 
   <div class="form-group">
     <label for="title">Post Title</label>

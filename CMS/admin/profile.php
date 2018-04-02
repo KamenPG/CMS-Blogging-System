@@ -27,6 +27,9 @@ if (isset($_SESSION['username'])) {
 
  <?php
 
+ $message = "";
+ $result = "";
+
  if (isset($_POST['update_profile'])) {
 
    $user_firstname = $_POST['user_firstname'];
@@ -36,20 +39,32 @@ if (isset($_SESSION['username'])) {
    $user_email = $_POST['user_email'];
    $user_password = $_POST['user_password'];
 
-   $password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
+   if (!empty($username) && !empty($user_email) && !empty($user_password)) {
+     $password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
 
-   $query = "UPDATE users SET ";
-   $query .="user_firstname = '{$user_firstname}', ";
-   $query .="user_lastname = '{$user_lastname}', ";
-   $query .="user_role = '{$user_role}', ";
-   $query .="username = '{$username}', ";
-   $query .="user_email = '{$user_email}', ";
-   $query .="user_password = '{$password}' ";
-   $query .="WHERE user_id = {$user_id} ";
+     $query = "UPDATE users SET ";
+     $query .="user_firstname = '{$user_firstname}', ";
+     $query .="user_lastname = '{$user_lastname}', ";
+     $query .="user_role = '{$user_role}', ";
+     $query .="username = '{$username}', ";
+     $query .="user_email = '{$user_email}', ";
+     $query .="user_password = '{$password}' ";
+     $query .="WHERE user_id = {$user_id} ";
 
-   $update_user = mysqli_query($connection, $query);
+     $update_user = mysqli_query($connection, $query);
 
-   confirmQuery($update_user);
+     confirmQuery($update_user);
+
+     $message = "Profle Updated!";
+     $result = "success";
+   }
+
+   else {
+     $message = "Fields cannot be empty!";
+     $result = "danger";
+   }
+
+
 
  }
 
@@ -72,6 +87,7 @@ if (isset($_SESSION['username'])) {
         <h1 class="page-header">
             Profile
         </h1>
+        <h4><div class=bg-<?php echo $result ?>><strong><?php echo $message?></strong></div></h4>
 
         <form action="" method="post" enctype="multipart/form-data">
 
@@ -87,7 +103,7 @@ if (isset($_SESSION['username'])) {
 
         <div class="form-group">
           <select name="user_role" id="">
-            <option value="Subscriber"><?php echo "$user_role"; ?></option>
+            <option value="<?php echo "$user_role"; ?>"><?php echo "$user_role"; ?></option>
 
             <?php
 

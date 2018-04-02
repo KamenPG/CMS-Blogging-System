@@ -1,5 +1,8 @@
 <?php
 
+$message = "";
+$result = "";
+
 if (isset($_GET['p_id'])) {
 
     $the_post_id = $_GET['p_id'];
@@ -49,28 +52,38 @@ if (empty($post_image)) {
 
       }
 
-            $query = "UPDATE posts SET ";
-            $query .="post_title = '{$post_title}', ";
-            $query .="post_category_id = '{$post_category_id}', ";
-            $query .="post_date = now(), ";
-            $query .="post_author = '{$post_author}', ";
-            $query .="post_status = '{$post_status}', ";
-            $query .="post_tags = '{$post_tags}', ";
-            $query .="post_content = '{$post_content}', ";
-            $query .="post_image = '{$post_image}' ";
-            $query .="WHERE post_id = {$the_post_id} ";
+      if (!empty($post_title) && !empty($post_author) && !empty($post_image) && !empty($post_tags) && !empty($post_tags) && !empty($post_content)) {
 
-            $update_post = mysqli_query($connection, $query);
+                    $query = "UPDATE posts SET ";
+                    $query .="post_title = '{$post_title}', ";
+                    $query .="post_category_id = '{$post_category_id}', ";
+                    $query .="post_date = now(), ";
+                    $query .="post_author = '{$post_author}', ";
+                    $query .="post_status = '{$post_status}', ";
+                    $query .="post_tags = '{$post_tags}', ";
+                    $query .="post_content = '{$post_content}', ";
+                    $query .="post_image = '{$post_image}' ";
+                    $query .="WHERE post_id = {$the_post_id} ";
 
-            confirmQuery($update_post);
+                    $update_post = mysqli_query($connection, $query);
 
-            echo "<div class='alert alert-success'><p><strong>Post Updated</strong>: <a href='../post.php?p_id={$the_post_id}'>View Post</a> or
-            <a href='posts.php'>Edit More Posts</a></p></div>";
+                    confirmQuery($update_post);
+
+                    $message = "<strong>Post Updated</strong>: <a href='../post.php?p_id={$the_post_id}'>View Post</a> or <a href='posts.php'>Edit More Posts</a>";
+                    $result = "success";
+      }
+
+      else {
+        $message = "Fields cannot be empty!";
+        $result = "danger";
+      }
 
 }
  ?>
 
 <form action="" method="post" enctype="multipart/form-data">
+
+  <h4><div class=bg-<?php echo $result ?>><strong><?php echo $message?></strong></div></h4>
 
   <div class="form-group">
     <label for="post_title">Post Title</label>

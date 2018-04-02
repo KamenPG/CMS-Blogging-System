@@ -11,6 +11,10 @@ if (isset($_POST['create_user'])) {
   $user_email = $_POST['user_email'];
   $user_password = $_POST['user_password'];
 
+  if (!empty($username) && !empty($user_email) && !empty($user_password)) {
+    # code...
+  }
+
   $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
 
   // $post_date = date('d-m-y');
@@ -28,8 +32,15 @@ if (isset($_POST['create_user'])) {
 
   confirmQuery($create_user_query);
 
+  $message = "User Created: " . " " . "<a href='users.php'>View Users</a>";
+  $result = "success";
 
-  echo "<div class=bg-success>User Created: " . " " . "<a href='users.php'>View Users</a></div>";
+}
+
+else {
+
+  $message = "Fields cannot be empty!";
+  $result = "danger";
 
 }
 
@@ -37,6 +48,8 @@ if (isset($_POST['create_user'])) {
  ?>
 
 <form action="" method="post" enctype="multipart/form-data">
+
+  <h4><div class=bg-<?php echo $result ?>><strong><?php echo $message?></strong></div></h4>
 
   <div class="form-group">
     <label for="title">First Name</label>
@@ -52,8 +65,8 @@ if (isset($_POST['create_user'])) {
     <select name="user_role" id="">
 
       <option value="subscriber">Select Option</option>
-      <option value="Admin">Admin</option>
       <option value="Subscriber">Subscriber</option>
+      <option value="Admin">Admin</option>
 
     </select>
   </div>
