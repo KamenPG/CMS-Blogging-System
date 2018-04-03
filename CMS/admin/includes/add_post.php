@@ -14,10 +14,8 @@ if (isset($_POST['create_post'])) {
   $post_image_temp = $_FILES['post_image']['tmp_name'];
 
   $post_tags = $_POST['post_tags'];
-  $post_content = $_POST['post_content'];
+  $post_content = str_replace('\'','\'\'',$_POST['post_content']);
   $post_date = date('d-m-y');
-
-
 
   if (!empty($post_title) && !empty($post_author) && !empty($post_category_id) && !empty($post_status) && !empty($post_image) && !empty($post_image_temp) && !empty($post_tags) && !empty($post_content)) {
 
@@ -58,10 +56,9 @@ if (isset($_POST['create_post'])) {
   </div>
 
   <div class="form-group">
+    <label for="categories">Categories</label>
     <select name="post_category" id="">
-
       <?php
-
           $query = "SELECT * FROM categories";
           $select_categories= mysqli_query($connection, $query);
 
@@ -73,15 +70,20 @@ if (isset($_POST['create_post'])) {
 
           echo "<option value='$cat_id'>$cat_title</option>";
           }
-
        ?>
-
     </select>
   </div>
 
   <div class="form-group">
-    <label for="title">Author</label>
-    <input type="text" class="form-control" name="author">
+
+    <div class="form-group">
+      <label for="post_tags">Post Tags</label>
+      <input type="text" class="form-control" name="post_tags">
+    </div>
+
+  <div class="form-group">
+    <label for="post_author">Author</label>
+    <input type="text" class="form-control" name="author" value="<?php echo $_SESSION['username']?>" readonly>
   </div>
 
   <div class="form-group">
@@ -104,10 +106,11 @@ if (isset($_POST['create_post'])) {
 
   <div class="form-group">
     <label for="post_content">Post Content</label>
-    <textarea class="form-control" name="post_content" id="body" rows="10" cols="50"></textarea>
-    <?php include './scripts.js' ?>
-  </div>
 
+    <textarea class="form-control" name="post_content" id="body" rows="30" cols="50"></textarea>
+    <?php include './scripts.js' ?>
+
+  </div>
   <div class="form-group">
     <input class="btn btn-primary" type="submit" name="create_post"  value="Publish Post">
   </div>

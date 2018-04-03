@@ -12,6 +12,8 @@
         <div class="row">
 
             <!-- Blog Entries Column -->
+
+            <br>
             <div class="col-md-8">
 
               <?php include "includes/search.php" ?>
