@@ -31,24 +31,33 @@ $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 
  }
-
   ?>
 
  <?php
 
  function create_categories(){
 
+   // $message = "";
+   // $result = "";
+
    if (isset($_POST['submit'])) {
 
      global $connection;
+     global $message;
+     global $result;
 
    $cat_title = $_POST['cat_title'];
 
    if ($cat_title=="" || empty($cat_title)) {
 
-   echo "This field should not be empty !";
+   $message = "This field should not be empty!";
+   $result = "danger";
+
    }
    else {
+
+     $message = "Category created!";
+     $result = "success";
 
    $query = "INSERT INTO categories(cat_title)";
    $query .= "VALUE('$cat_title') ";
@@ -98,7 +107,7 @@ $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
      echo "<tr>";
      echo "<td>{$cat_id}</td>";
      echo "<td>{$cat_title}</td>";
-     echo "<td><a href='categories.php?delete={$cat_id}'>Delete</a></td>";
+     echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this category?');\" href='categories.php?delete={$cat_id}'>Delete</a></td>";
      echo "<td><a href='categories.php?edit={$cat_id}'>Edit</a></td>";
      echo "<tr>";
        }

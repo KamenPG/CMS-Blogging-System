@@ -9,7 +9,6 @@
 <!-- Navigation -->
 <?php include "includes/admin_navigation.php" ?>
 
-
   <!-- Page Heading -->
   <div class="row">
       <div class="col-lg-12">
@@ -20,11 +19,14 @@
         <div class="col-xs-6">
 
       <?php
+      $message = "";
+      $result = "";
       //CREATING A CATEGORY
       create_categories()
       ?>
 
        <form action="" method="post">
+         <h4><div class=bg-<?php echo $result ?>><strong><?php echo $message?></strong></div></h4>
 
          <div class="form-group">
            <label for="cat-title">Category Title</label>

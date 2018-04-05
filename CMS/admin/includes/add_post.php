@@ -34,7 +34,7 @@ if (isset($_POST['create_post'])) {
 
             $the_post_id = mysqli_insert_id($connection);
 
-            $message = "Post Created</strong>: <a href='../post.php?p_id={$the_post_id}'>View Post</a>";
+            $message = "Post Created</strong>: <a href='../post_admin.php?p_id={$the_post_id}'>View Post</a>";
             $result = "success";
   }
 

@@ -34,7 +34,7 @@ if (isset($_POST['update_post'])) {
         $post_status = $_POST['post_status'];
         $post_image = $_FILES['image']['name'];
         $post_image_temp = $_FILES['image']['tmp_name'];
-        $post_content = $_POST['post_content'];
+        $post_content = str_replace('\'','\'\'',$_POST['post_content']);
         $post_tags = $_POST['post_tags'];
 
 move_uploaded_file($post_image_temp, "../images/$post_image");
@@ -69,7 +69,7 @@ if (empty($post_image)) {
 
                     confirmQuery($update_post);
 
-                    $message = "<strong>Post Updated</strong>: <a href='../post.php?p_id={$the_post_id}'>View Post</a> or <a href='posts.php'>Edit More Posts</a>";
+                    $message = "<strong>Post Updated</strong>: <a href='../post_admin.php?p_id={$the_post_id}'>View Post</a> or <a href='posts.php'>Edit More Posts</a>";
                     $result = "success";
       }
 

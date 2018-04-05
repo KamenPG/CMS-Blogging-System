@@ -14,7 +14,7 @@
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
       <li ><a href=''>Online Users: <?php users_online() ?></a></li>
-      <li><a href="../index.php">HOME</a></li>
+      <li><a href="../index_admin.php">Home</a></li>
 
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['username']?> <b class="caret"></b></a>

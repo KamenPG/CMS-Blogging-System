@@ -98,6 +98,7 @@ if (isset($_POST['checkBoxArray'])) {
     <th>Date</th>
     <th>View Post</th>
     <th>Edit</th>
+    <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -107,6 +108,7 @@ if (isset($_POST['checkBoxArray'])) {
 
     $query = "SELECT * FROM posts ORDER BY post_id DESC";
     $select_posts = mysqli_query($connection, $query);
+
 
       while ($row = mysqli_fetch_assoc($select_posts)) {
           $post_id = $row['post_id'];
@@ -120,15 +122,13 @@ if (isset($_POST['checkBoxArray'])) {
           $post_date = $row['post_date'];
           $post_view_count = $row['post_view_count'];
 
-
           echo "<tr>"; ?>
 
         <td><input class='checkBoxes' type='checkbox' name='checkBoxArray[]' value='<?php echo $post_id; ?>'></td>
 
         <?php
 
-
-        echo "<td>$post_id</td>";
+          echo "<td>$post_id</td>";
           echo "<td>$post_author</td>";
           echo "<td>$post_title</td>";
 
@@ -149,9 +149,10 @@ if (isset($_POST['checkBoxArray'])) {
           $query = "SELECT * FROM comments";
           $select_comments = mysqli_query($connection, $query);
 
+          $count_comments = 0;
+
             while ($row = mysqli_fetch_assoc($select_comments)) {
                 $comment_id = $row['comment_id'];
-            }
 
             //counting the comments for every post
 
@@ -160,11 +161,14 @@ if (isset($_POST['checkBoxArray'])) {
           $row = mysqli_fetch_array($send_comment_count_query);
           $count_comments = mysqli_num_rows($send_comment_count_query);
 
+        }
+
           echo "<td><a href='comment.php?id=$post_id'>$count_comments</a></td>";
           echo "<td><a href='posts.php?reset={$post_id}'>$post_view_count</a></td>";
           echo "<td>$post_date</td>";
-          echo "<td><a href='../post.php?&p_id={$post_id}'>View Post</a></td>";
+          echo "<td><a href='../post_admin.php?&p_id={$post_id}'>View Post</a></td>";
           echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
+          echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delete this post?');\" href='posts.php?delete=$post_id'>Delete</a></td>";
           echo "<tr>";
       }
 
@@ -180,6 +184,14 @@ if (isset($_GET['reset'])) {
 
     $query = "UPDATE posts SET post_view_count = 0 WHERE post_id =" . mysqli_real_escape_string($connection, $_GET['reset']);
     $reset_views_count_query = mysqli_query($connection, $query);
+    header("Location: posts.php");
+}
+
+if (isset($_GET['delete'])) {
+    $the_post_id = $_GET['delete'];
+
+    $query = "DELETE FROM posts WHERE post_id = {$the_post_id}";
+    $delete_query = mysqli_query($connection, $query);
     header("Location: posts.php");
 }
 

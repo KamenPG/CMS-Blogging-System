@@ -1,4 +1,6 @@
   <?php
+  $message = "";
+  $result = "";
 if (isset($_POST['create_user'])) {
 
   $user_firstname = $_POST['user_firstname'];
@@ -12,35 +14,33 @@ if (isset($_POST['create_user'])) {
   $user_password = $_POST['user_password'];
 
   if (!empty($username) && !empty($user_email) && !empty($user_password)) {
-    # code...
+    $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
+
+    // $post_date = date('d-m-y');
+    // $post_comment_count = 4;
+
+    //       move_uploaded_file($post_image_temp,"../images/$post_image");
+
+          $query = "INSERT INTO users(user_firstname, user_lastname, user_role, username,
+          user_email, user_password)";
+
+          $query .="VALUES('{$user_firstname}','{$user_lastname}',
+          '{$user_role}','{$username}','{$user_email}','{$user_password}')";
+
+          $create_user_query = mysqli_query($connection, $query);
+
+    confirmQuery($create_user_query);
+
+    $message = "User Created: " . " " . "<a href='users.php'>View Users</a>";
+    $result = "success";
   }
 
-  $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
+  else {
 
-  // $post_date = date('d-m-y');
-  // $post_comment_count = 4;
+    $message = "Fields cannot be empty!";
+    $result = "danger";
 
-  //       move_uploaded_file($post_image_temp,"../images/$post_image");
-
-        $query = "INSERT INTO users(user_firstname, user_lastname, user_role, username,
-        user_email, user_password)";
-
-        $query .="VALUES('{$user_firstname}','{$user_lastname}',
-        '{$user_role}','{$username}','{$user_email}','{$user_password}')";
-
-        $create_user_query = mysqli_query($connection, $query);
-
-  confirmQuery($create_user_query);
-
-  $message = "User Created: " . " " . "<a href='users.php'>View Users</a>";
-  $result = "success";
-
-}
-
-else {
-
-  $message = "Fields cannot be empty!";
-  $result = "danger";
+  }
 
 }
 
